@@ -5,10 +5,10 @@ from gravity_source3d import GravitySource3D as gs3d
 from antigravity_source3d import AntiGravitySource3D as as3d
 import numpy as np
 
-class TestScene(ThreeDScene):
+class TestLightScene(ThreeDScene):
     def construct(self):
         # Screen settings
-        self.set_camera_orientation(phi=45 * DEGREES, theta=45 * DEGREES)
+        self.set_camera_orientation(phi=0 * DEGREES, theta=0 * DEGREES)
         self.camera.background_color = "BLACK"
 
     # Constants
@@ -32,13 +32,13 @@ class TestScene(ThreeDScene):
         light_sphere.move_to([2, 3, 2])
         
 
-        gravity_sphere = gs3d(3000, ORIGIN)
-        gravity_sphere.set_position(ORIGIN)
+        # gravity_sphere = gs3d(3000, ORIGIN)
+        # gravity_sphere.set_position(ORIGIN)
 
 
         # Add elements to the screen
-        self.add(plane, gravity_sphere)
-        self.add(light_sphere)
+        self.add(plane, light_sphere)
+        # self.add(gravity_sphere)
 
         # Initialize velocity for the light sphere
         velocity = np.array([0.0, 0.0, 0.0], dtype=np.float64)
@@ -48,23 +48,23 @@ class TestScene(ThreeDScene):
             nonlocal velocity  # Keep track of velocity across frames
             
             # Calculate gravitational force
-            force = gravity_sphere.gravitational_pull(mob.get_center())
-            acceleration = np.array(force, dtype=np.float64) * 0.1
+            # force = gravity_sphere.gravitational_pull(mob.get_center())
+            # acceleration = np.array(force, dtype=np.float64) * 0.1
 
             # Update velocity based on force
-            velocity += acceleration * dt * 0.1 # dt is the frame delta time
+            # velocity += acceleration * dt * 0.1 # dt is the frame delta time
             
             # Move the sphere based on velocity
             mob.shift(velocity * dt)
 
             # Light moves forward
-            mob.shift(0.5 * RIGHT * dt)
+            mob.shift(0.5 * LEFT * dt)
 
         # Add updater to the sphere
         light_sphere.add_updater(update_sphere)
 
         # Animate for a duration
-        self.wait(35)
+        self.wait(7)
 
         # Remove the updater after animation is complete
         light_sphere.clear_updaters()
