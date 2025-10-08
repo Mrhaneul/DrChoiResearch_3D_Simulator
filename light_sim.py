@@ -45,6 +45,10 @@ class TestLightScene(ThreeDScene):
         light_sphere.move_to([0, -5, 0])
         self.add(light_sphere)
 
+        # Path trace (nice visual of the trajectory)
+        trail = TracedPath(light_sphere.get_center, stroke_color=getattr(cp, "PATH_COLOR", BLUE), stroke_width=getattr(cp, "PATH_WIDTH", 2))
+        self.add(trail)
+
         # Initialize velocity for the light sphere
         velocity = np.array([0.0, 0.0, 0.0], dtype=np.float64)
         force_scale = 0.01

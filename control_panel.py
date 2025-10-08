@@ -12,6 +12,7 @@ class ControlPanel:
     TEXT_COLOR = (255, 255, 255)
     GRAVITY_SOURCE_RADIUS = 0.4
     LIGHT_RADIUS = 0.1
+    FORCE_SCALE = 0.1
     TIME_STEP = 0.1
     PATH_COLOR = BLUE
     PATH_WIDTH = 2
