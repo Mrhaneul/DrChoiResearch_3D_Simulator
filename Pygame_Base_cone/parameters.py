@@ -1,0 +1,19 @@
+# Constants
+MASS = 100
+WIDTH, HEIGHT = 800, 600
+BACKGROUND_COLOR = (0, 0, 0)
+GRAVITY_SOURCE_COLOR = (255, 0, 0)
+LIGHT_COLOR = (0, 255, 155)
+TEXT_COLOR = (255, 255, 255)
+GRAVITY_SOURCE_RADIUS = 10
+LIGHT_RADIUS = 2
+TIME_STEP = 0.01
+PATH_COLOR = (255, 255, 0)
+PATH_WIDTH = 0.5
+CONTROL_PANEL_WIDTH = 200
+MAX_FRAMES = 15000  # Maximum number of frames for the real-time mode
+STOP_DISTANCE_THRESHOLD = 10  # Threshold distance to stop the light
+ANTI_GRAVITY_SOURCE_COLOR = (0, 255, 255)
+MODE = 1 # 1 for real-time, 2 for full path
+R = 10
+THETA = range(30, 150, 5)
