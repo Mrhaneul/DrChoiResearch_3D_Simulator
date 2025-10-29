@@ -18,6 +18,8 @@ class ControlPanel:
     PATH_WIDTH = 2
     MAX_FRAMES = 2000  # Maximum number of frames for the real-time mode
     STOP_DISTANCE_THRESHOLD = 3 # Threshold distance to stop the light
+    EARTH_RADIUS = 2
+    EARTH_COLOR = (0, 100, 255)
 
     def construct(self):
         # Screen settings
