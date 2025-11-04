@@ -1,6 +1,6 @@
 from manim import *
 from control_panel import ControlPanel as cp
-from light3d import Light3D as l3d
+from manim3d_simulator.src.light3d import Light3D as l3d
 from manim3d_simulator.src.gravity_source3d import GravitySource3D as gs3d
 from manim3d_simulator.src.antigravity_source3d import AntiGravitySource3D as as3d
 import numpy as np

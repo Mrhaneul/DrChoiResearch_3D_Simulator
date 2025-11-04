@@ -15,7 +15,7 @@ class GravityLightScene(ThreeDScene):
 
     def construct(self):
         # Screen settings
-        self.set_camera_orientation(phi=60 * DEGREES, theta=45 * DEGREES)
+        self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES)
         self.camera.background_color = "BLACK"
 
         # Creating a gravity source with mass 3000 at the center of the screen

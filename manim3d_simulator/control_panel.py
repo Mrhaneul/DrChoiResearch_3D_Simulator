@@ -5,8 +5,9 @@ class ControlPanel:
     MODE = 2 # 1 for real-time, 2 for full path
     LENGTH, WIDTH, HEIGHT = 800, 800, 600
     BACKGROUND_COLOR = (0, 0, 0)
-    GRAVITY_SOURCE_COLOR = (255, 0, 0)
-    ANTIGRAVITY_SOURCE_COLOR = (0, 0, 255)
+    # Gravity color = blue, Anti-gravity color = red
+    GRAVITY_SOURCE_COLOR = (0, 0, 255)
+    ANTIGRAVITY_SOURCE_COLOR = (255, 0, 0)
     GRAVITY_SOURCE_MASS = 1000
     LIGHT_COLOR = (0, 255, 0)
     TEXT_COLOR = (255, 255, 255)

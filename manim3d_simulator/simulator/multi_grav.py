@@ -18,38 +18,56 @@ import numpy as np
 class TestMultiGrav(ThreeDScene):
     def construct(self):
         # Screen settings
-        self.set_camera_orientation(phi=45 * DEGREES, theta=-45 * DEGREES, zoom=0.2)
+        # Avoid passing zoom to OpenGL camera (older versions lack set_zoom)
+        self.set_camera_orientation(phi=90 * DEGREES, theta=90 * DEGREES)
+        # Try to apply zoom in a renderer-agnostic way
+        try:
+            cam = getattr(self, "renderer").camera
+            if hasattr(cam, "set_zoom"):
+                cam.set_zoom(0.2)
+            elif hasattr(cam, "zoom"):
+                cam.zoom = 0.2
+        except Exception:
+            pass
         self.camera.background_color = "BLACK"
 
-    # Constants
+        # Constants
         self.length, self.width, self.height = cp.LENGTH, cp.WIDTH, cp.HEIGHT
 
         axes = ThreeDAxes()
 
-    # Create a 3D plane for better visualization
+        # 3D grid
         plane = NumberPlane(
-            x_range=[-30, 30, 1],   # third value = step
+            x_range=[-30, 30, 1],
             y_range=[-30, 30, 1],
-            faded_line_ratio=1,     # no extra faded lines
+            faded_line_ratio=1,
             background_line_style={"stroke_opacity": 0.5, "stroke_width": 1},
             axis_config={"stroke_color": WHITE, "stroke_width": 2},
         )
         self.add(axes, plane)
-        
-        # --- Multiple gravity sources ---
-        # Define as (mass, position)
+
+        # Gravity sources (x ↔ y swapped)
         g_src_specs = [
-            (3000, [-19,  2, -14]),
-            (3000, [ 16,  3,   9]),
-            (3000, [-14,  5,   7]),
-            (3000, [ 11,  6,  -8]),
-            (3000, [ -9,  9,   4]),
-            (3000, [  7, 11,  -3]),
-            (3000, [ -5, 13,   2]),
-            (3000, [  4, 15,  -2]),
-            # (3000, [  2, 17,   1]),
-            # (3000, [  0, 19,   0]),   # cone tip near Earth
+            # Layer 1 (lowest and widest base)
+            (150, [-10, -5, -6]),   # G −X−Z
+            (150, [ 10, -5,  6]),   # G +X+Z
+            (150, [-10, -5,  6]),   # G −X+Z
+            (150, [ 10, -5, -6]),   # G +X−Z
+
+            # Layer 2 (wide base)
+            (150, [-8, 0,  0]),     # G −X
+            (150, [ 0, 0, -4]),     # G −Z
+            (150, [ 8, 0,  0]),     # G +X
+            (150, [ 0, 0,  4]),     # G +Z
+
+            # Layer 3 (mid layer)
+            (150, [-4, 6,  0]),     # G −X
+            (150, [ 4, 6,  0]),     # G +X
+
+            # Layer 4 (tip near center)
+            # (150, [0, 13, 0]),      # G center
         ]
+
 
         g_sources = []
         for mass, pos in g_src_specs:
@@ -58,17 +76,26 @@ class TestMultiGrav(ThreeDScene):
             g_sources.append(s)
         self.add(*g_sources)
 
+        # Antigravity sources (x ↔ y swapped)
         a_src_specs = [
-            (3000, [-18,  2,  13]),
-            (3000, [ 15,  3, -10]),
-            (3000, [-12,  5,  -6]),
-            (3000, [ 10,  6,   5]),
-            (3000, [ -8,  9,  -5]),
-            (3000, [  6, 11,   3]),
-            (3000, [ -4, 13,  -2]),
-            (3000, [  3, 15,   2]),
-            # (3000, [  1, 17,  -1]),
-            # (3000, [  0, 19,   1]),   # close to cone tip
+            # Layer 1 (lowest and widest base, interleaved)
+            (150, [-6, -4, -4]),   # A −X−Z
+            (150, [ 6, -4,  4]),   # A +X+Z
+            (150, [-6, -4,  4]),   # A −X+Z
+            (150, [ 6, -4, -4]),   # A +X−Z
+
+            # Layer 2 (interleaved mid-low)
+            (150, [-4, 2, -2]),    # A −X−Z
+            (150, [ 4, 2,  2]),    # A +X+Z
+            (150, [-4, 2,  2]),    # A −X+Z
+            (150, [ 4, 2, -2]),    # A +X−Z
+
+            # Layer 3 (mid)
+            (150, [-2, 8,  0]),    # A −X
+            (150, [ 2, 8,  0]),    # A +X
+
+            # Layer 4 (tip)
+            # (150, [0, 14, 0]),     # A near center
         ]
 
         a_sources = []
@@ -77,86 +104,70 @@ class TestMultiGrav(ThreeDScene):
             s.set_position(pos)
             a_sources.append(s)
         self.add(*a_sources)
-        
 
-        # Create earth sphere for reference
+        # Earth sphere
         earth = Sphere(
             radius=cp.EARTH_RADIUS,
             color=cp.EARTH_COLOR,
             fill_opacity=0.5,
             stroke_color=cp.EARTH_COLOR,
-            stroke_width = 2
-        ).move_to([0, -25, 0])
-        self.add(earth)
+            stroke_width=2
+        ).move_to([0, 25, 0])  # swapped x/y
+        # self.add(earth)
 
-
-        # Multiple light particles
+        # Lights (x ↔ y swapped)
         light_positions = [
-            # Left outer column
-            [-14, -10, -12], [-14, -10,  -8], [-14, -10,  -4], [-14, -10,   0], [-14, -10,   4],
-            
-            # Mid-left
-            [ -8, -10, -10], [ -8, -10,  -5], [ -8, -10,   0], [ -8, -10,   5], [ -8, -10,  10],
-            
-            # Center line
-            [  0, -10, -12], [  0, -10,  -6], [  0, -10,   0], [  0, -10,   6], [  0, -10,  12],
-            
-            # Mid-right
-            [  8, -10, -10], [  8, -10,  -5], [  8, -10,   0], [  8, -10,   5], [  8, -10,  10],
+            # z from -10 → 10, for each x step
+            [-10, -10, -10], [-10, -10, -5], [-10, -10,  0], [-10, -10,  5], [-10, -10, 10],
+            [ -5, -10, -10], [ -5, -10, -5], [ -5, -10,  0], [ -5, -10,  5], [ -5, -10, 10],
+            [  0, -10, -10], [  0, -10, -5], [  0, -10,  0], [  0, -10,  5], [  0, -10, 10],
+            [  5, -10, -10], [  5, -10, -5], [  5, -10,  0], [  5, -10,  5], [  5, -10, 10],
+            [ 10, -10, -10], [ 10, -10, -5], [ 10, -10,  0], [ 10, -10,  5], [ 10, -10, 10],
         ]
 
 
         lights = []
         for pos in light_positions:
-            light_sphere = l3d.light_dot(self)
+            light_sphere = l3d.light_dot(self) 
             light_sphere = Sphere(
-                radius=cp.LIGHT_RADIUS,     
+                radius=cp.LIGHT_RADIUS,
                 color=cp.LIGHT_COLOR,
                 fill_opacity=1,
                 stroke_color=cp.LIGHT_COLOR,
-                stroke_width = 3  # Increase outline thickness
+                stroke_width=3
             ).move_to(pos)
             self.add(light_sphere)
 
-            # Path trace (nice visual of the trajectory)
             trail = TracedPath(
-                light_sphere.get_center, 
-                stroke_color=getattr(cp, "PATH_COLOR", BLUE), 
-                stroke_width=getattr(cp, "PATH_WIDTH", 2))
+                light_sphere.get_center,
+                stroke_color=getattr(cp, "PATH_COLOR", BLUE),
+                stroke_width=getattr(cp, "PATH_WIDTH", 2)
+            )
             self.add(trail)
-            
-            # Make a per-light updater (unique velocity)
+
             def make_updater():
                 velocity = np.zeros(3, dtype=np.float64)
-                force_scale   = cp.FORCE_SCALE
+                force_scale = cp.FORCE_SCALE
 
                 def update(mob: Mobject, dt: float):
-                        nonlocal velocity
-                        pos = np.array(mob.get_center(), dtype=np.float64)
-
-                        total_g_force = np.zeros(3)
-                        for src in g_sources:
-                            total_g_force += np.array(src.gravitational_pull(tuple(pos)))
-
-                        total_a_force = np.zeros(3)
-                        for src in a_sources:
-                            total_a_force += np.array(src.gravitational_push(tuple(pos)))
-
-                        acc = (total_g_force + total_a_force) * force_scale
-
-                        velocity += acc * dt
-
-                        mob.shift(velocity * dt)
-                        
-                        # Light moves forward
-                        mob.shift(6 * UP * dt)
+                    nonlocal velocity
+                    pos = np.array(mob.get_center(), dtype=np.float64)
+                    total_g_force = np.zeros(3)
+                    for src in g_sources:
+                        total_g_force += np.array(src.gravitational_pull(tuple(pos)))
+                    total_a_force = np.zeros(3)
+                    for src in a_sources:
+                        total_a_force += np.array(src.gravitational_push(tuple(pos)))
+                    acc = (total_g_force + total_a_force) * force_scale
+                    velocity += acc * dt
+                    mob.shift(velocity * dt)
+                    mob.shift(6 * UP * dt)  # swapped UP → RIGHT
 
                 return update
-            
+
             light_sphere.add_updater(make_updater())
             lights.append(light_sphere)
 
         self.wait(7)
-
         for light in lights:
             light.clear_updaters()
