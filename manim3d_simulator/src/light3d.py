@@ -1,8 +1,8 @@
 from manim import *
 import math
-from control_panel import ControlPanel as cp
+from manim3d_simulator.control_panel import ControlPanel as cp
 
-class Light3D(VGroup):
+class Light3D(Group):
     def __init__(self, position, direction):
         super().__init__()
         self.position = list(position)  # Use a list to allow modification
@@ -10,8 +10,8 @@ class Light3D(VGroup):
         self.direction = list(direction)  # To track the initial direction
         self.path = [tuple(self.position)]  # To store the path of the light
         # Create a visual object for the light
-        light_sphere_obj = self.light_dot()
-        self.add(light_sphere_obj)
+        self.dot = self.light_dot()
+        self.add(self.dot)
 
 
     def light_dot(self):

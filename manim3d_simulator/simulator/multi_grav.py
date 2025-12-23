@@ -9,7 +9,7 @@ for p in (_pkg_root, _proj_root):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from control_panel import ControlPanel as cp
+from manim3d_simulator.control_panel import ControlPanel as cp
 from manim3d_simulator.src.light3d import Light3D as l3d
 from manim3d_simulator.src.gravity_source3d import GravitySource3D as gs3d
 from manim3d_simulator.src.antigravity_source3d import AntiGravitySource3D as as3d
@@ -32,8 +32,8 @@ class TestMultiGrav(ThreeDScene):
 
         # --- Camera setup ---
         self.set_camera_orientation(
-            phi=60 * DEGREES,
-            theta=60 * DEGREES,
+            phi=90 * DEGREES,
+            theta=90 * DEGREES,
         )
 
         try:
@@ -72,7 +72,7 @@ class TestMultiGrav(ThreeDScene):
         Y_START = -6         # y of Layer 1 (base)
         Y_STEP = 5           # vertical spacing
         R_BASE = 22          # base radius (wider)
-        R_TOP = 2            # tip radius (narrow)
+        R_TOP = 4            # tip radius (narrow)
         MASS = 150
         AXIS = "y"           # cone axis along Y
 
@@ -105,7 +105,7 @@ class TestMultiGrav(ThreeDScene):
             r = lerp(R_BASE, R_TOP, t)
 
             # Points per ring proportional to radius (even number)
-            n = max(6, int(0.8 * r) * 2)
+            n = max(3, int(0.8 * r/2) * 2)
 
             # Gravity ring
             g_ring = ring_points(r, y, n, phase=0.0, axis=AXIS)
@@ -145,8 +145,8 @@ class TestMultiGrav(ThreeDScene):
         # =========================================================
         #   LIGHT CONFIGURATION
         # =========================================================
-        N_X = 10              # number of launch positions along X
-        N_Z = 10              # number of launch positions along Z
+        N_X = 16              # number of launch positions along X
+        N_Z = 16              # number of launch positions along Z
         X_MIN, X_MAX = -20, 20
         Z_MIN, Z_MAX = -20, 20
         LIGHT_Y = -30        # starting Y for all lights

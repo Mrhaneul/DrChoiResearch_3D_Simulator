@@ -1,5 +1,5 @@
 from manim import * 
-from control_panel import ControlPanel as cp
+from manim3d_simulator.control_panel import ControlPanel as cp
 
 class GravitySimulation(ThreeDScene):
     def construct(self):
