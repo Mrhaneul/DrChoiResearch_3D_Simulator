@@ -1,204 +1,171 @@
-Two-Charge Gravity & Gravitational Lensing Simulator
-Overview
+# Two-Charge Gravity & Gravitational Lensing Simulator
 
-This repository contains a computational and visualization framework for exploring a Two-Charge Theory of Gravity (TCG) and its observable consequences, particularly gravitational lensing and large-scale cosmic dynamics.
+## Overview
 
-The project builds on the theoretical work presented in Ye Jin Han, “A Two-Charge Theory of Gravity” (2018) 
+This repository contains a computational and visualization framework for exploring a **Two-Charge Theory of Gravity (TCG)** and its implications for gravitational lensing, cosmic expansion, and large-scale structure formation.
 
-Honors Thesis_YeJin_Han
+The project builds on the theoretical foundation established in **Ye Jin Han’s honors thesis, _A Two-Charge Theory of Gravity_ (2018)** and extends it through modern **3D simulations using Manim (Python)**. These simulations visualize the behavior of light particles under the influence of both **gravitating and anti-gravitating mass sources**, providing physical intuition for repulsive gravity and inverted gravitational lensing.
 
- and extends it through modern 3D simulations implemented using Manim Community (Python). The simulations visualize how light particles propagate through space influenced by gravitating and anti-gravitating mass sources, offering intuition for repulsive gravity, inverted lensing, and cosmological expansion effects.
+This work is part of an ongoing research effort under the supervision of **Dr. Hyung S. Choi**.
 
-This repository is part of an ongoing research collaboration under Dr. Hyung S. Choi, with the long-term objective of refining, validating, and communicating the physical implications of the TCG framework.
+---
 
-Theoretical Background: Two-Charge Gravity (TCG)
-Motivation
+## Theoretical Background
 
-Standard gravitational theory struggles to fully explain several major cosmological observations, including:
+### Two-Charge Theory of Gravity (TCG)
 
-Accelerating expansion of the universe (dark energy)
+Unlike the standard mono-charged model of gravity, TCG proposes that gravity possesses **two distinct gravitational charges**:
 
-Matter–antimatter (baryonic) asymmetry
+- Like gravitational charges **attract**
+- Opposite gravitational charges **repel**
 
-Dark matter distribution inferred from gravitational lensing
+This framework naturally introduces repulsive gravitational interactions while remaining consistent with known local gravitational physics.
 
-Early-universe inflation
+Key motivations for TCG include explaining:
 
-The Two-Charge Theory of Gravity proposes that gravity is not mono-charged but instead possesses two gravitational charges, analogous to electric charge:
+- Accelerating expansion of the universe (dark energy)
+- Matter–antimatter (baryonic) asymmetry
+- Dark matter–like gravitational lensing effects
+- Early-universe inflation
 
-Like gravitational charges attract
+Large-scale lattice simulations in the original thesis demonstrate that a universe with alternating gravitational charges produces a **net repulsive force**, even when local interactions remain attractive.
 
-Opposite gravitational charges repel
+---
 
-This differs fundamentally from electromagnetism and introduces repulsive gravitational interactions without modifying local Newtonian or General Relativistic behavior.
+## Purpose of This Repository
 
-Key Results from the Thesis
+This repository focuses on **visual and computational exploration** of TCG predictions by:
 
-Ye Jin Han’s thesis demonstrates that:
+- Simulating light-particle trajectories in 3D space
+- Modeling multiple gravitating and anti-gravitating sources
+- Visualizing gravitational and inverted gravitational lensing
+- Providing intuition for repulsive gravity at cosmological scales
 
-A 3D alternating lattice of positive and negative gravitational charges produces a non-zero net repulsive force at any arbitrary point.
+These simulations serve as qualitative experiments that complement analytic lattice models.
 
-Large-scale repulsion naturally emerges even when local interactions remain attractive.
+---
 
-A decreasing matter–antimatter ratio over distance leads to locally attractive gravity, explaining why antigravity is not observed in everyday physics.
+## Features
 
-The framework can account for:
+- 3D gravitational lensing simulations
+- Multiple gravity and antigravity sources
+- Dynamic light-particle propagation
+- Time-evolving trajectories
+- Manim-based rendering with full camera control
+- Modular physics and visualization components
 
-Inflation
+---
 
-Dark energy as residual repulsive gravity
+## Repository Structure
+(The exact structure may evolve as the project develops.)
 
-Inverted gravitational lensing
-
-Matter–antimatter separation over cosmic time
-
-These results motivate visual simulations to explore how light and test particles behave under TCG.
-
-What This Repository Does
-
-This repository provides:
-
-3D gravitational lensing simulations
-
-Dynamic light-particle propagation
-
-Multiple gravity and antigravity sources
-
-Time-evolving particle trajectories
-
-Visual intuition for repulsive vs. attractive gravity
-
-The simulations are not merely animations, they are computational experiments designed to reflect the qualitative predictions of TCG.
-
-Simulation Highlights
-Multi-Source Gravity & Antigravity
-
-Supports multiple gravitating and anti-gravitating sources placed arbitrarily in 3D space.
-
-Sources may be layered, clustered, or symmetrically arranged.
-
-Each source contributes to the net force field acting on light particles.
-
-Light Particle Dynamics
-
-Light rays are modeled as discrete particles with velocity vectors.
-
-At each timestep, particles experience cumulative gravitational influence.
-
-Trajectories bend toward gravitating sources and away from anti-gravitating sources.
-
-Demonstrates:
-
-Standard lensing
-
-Inverted lensing
-
-Deflection voids (“dark spots”)
-
-Visualization Engine
-
-Built on Manim Community (v0.19+)
-
-Fully 3D camera control
-
-Real-time trajectory rendering
-
-Scalable to hundreds or thousands of particles
-
-Repository Structure (Typical)
+```
 .
 ├── simulator/
-│   ├── light3d.py               # Light particle physics
-│   ├── gravity_source3d.py      # Positive gravity sources
-│   ├── antigravity_source3d.py  # Negative gravity sources
+│   ├── light3d.py               # Light particle dynamics
+│   ├── gravity_source3d.py      # Gravitating mass sources
+│   ├── antigravity_source3d.py  # Anti-gravitating mass sources
 │   ├── control_panel.py         # Simulation parameters
 │
 ├── scenes/
-│   ├── multi_grav.py            # Main 3D scene (TestMultiGrav)
+│   ├── multi_grav.py            # Main Manim scene (TestMultiGrav)
 │
 ├── videos/
 │   ├── *.mp4                    # Rendered simulation outputs
 │
 ├── README.md
 └── requirements.txt
+```
 
+# Simulation Guide and Project Status
 
-(Exact structure may evolve as the project expands.)
+## Running a Simulation
 
-Example Simulation
+To render a simulation using **Manim**, run the following command from the project root:
 
-To render a multi-source gravitational lensing scene:
-
+```bash
 python -m manim -pqh scenes/multi_grav.py TestMultiGrav
+```
 
+### Options
 
-Options:
+- `-p` : Preview the video after rendering  
+- `-q h` : High-quality render  
+- `--disable_caching` : Recommended for large scenes with many objects  
 
--p : Preview after rendering
+---
 
--q h : High quality
+## Simulation Videos
 
---disable_caching : Recommended for large particle counts
+_Add rendered outputs, links, or GIFs here._
 
-Scientific Interpretation
+### Example Simulations
 
-The simulations visually demonstrate several predictions of TCG:
+#### Multi-source gravitational lensing
 
-Repulsive background gravity emerging from mixed-charge distributions
+- **Description**:  
+  Light particles propagating through a field of multiple gravitating and anti-gravitating sources.
 
-Stable local attraction after charge segregation
+- **Video**:  
+  `videos/TestMultiGrav.mp4`
 
-Inverted lensing consistent with dark-matter-like observations
+#### Inverted gravitational lensing
 
-Cosmic acceleration without introducing an ad-hoc cosmological constant
+- **Description**:  
+  Light bending away from anti-gravitating mass distributions.
 
-These visual tools complement analytic lattice calculations and serve as an exploratory bridge between theory and observation.
+- **Video**:  
+  *(add link or file path here)*
 
-Current Status
+You may embed videos as links, GitHub-hosted MP4 files, or external links (e.g., Google Drive, YouTube).
 
-Core simulation engine implemented
+---
 
-Multi-gravity source support complete
+## Scientific Interpretation
 
-Light-particle dynamics stable
+The simulations demonstrate several qualitative predictions of the **Two-Charge Gravity** framework:
 
-3D rendering pipeline functional
+- Emergent large-scale repulsive gravity  
+- Local attractive gravity after charge segregation  
+- Inverted gravitational lensing consistent with dark matter–like observations  
+- Accelerated expansion without invoking an ad hoc cosmological constant  
 
-Ongoing performance optimization for large particle counts
+These results provide visual support for theoretical lattice calculations.
 
-Future Work
+---
 
-Planned or proposed extensions include:
+## Current Status
 
-GPU acceleration for million-particle simulations
+- Core simulation engine implemented  
+- Multi-source gravity and antigravity supported  
+- Light-particle dynamics stable  
+- 3D rendering pipeline functional  
+- Performance optimizations ongoing for large particle counts  
 
-Continuous density fields instead of point sources
+---
 
-Time-evolving charge ratios (cosmological epochs)
+## Future Work
 
-Quantitative lensing comparison with DES / ΛCDM maps
+Planned extensions include:
 
-Integration with observational datasets
+- GPU acceleration for large-scale simulations  
+- Continuous mass-density fields  
+- Time-evolving charge ratios (cosmological epochs)  
+- Quantitative lensing comparisons with observational data  
+- Publication-grade figures and animations  
 
-Publication-grade figures and animations
+---
 
-Credits & Acknowledgements
+## Acknowledgements
 
-Dr. Hyung S. Choi — Project Supervisor, Two-Charge Gravity Theory
+- **Dr. Hyung S. Choi** — Project supervisor and originator of the Two-Charge Gravity framework  
+- **Ye Jin Han** — Foundational theoretical and lattice simulation work  
+- **Kip Park** — Initial development of the 2D gravitational lensing simulation using **pygame** and **NumPy**, which established the conceptual and computational groundwork for this project  
 
-Ye Jin Han — Foundational theoretical work and lattice simulations
+---
 
-Haneul Kim — 3D simulation design, Manim implementation, visualization
-
-Inspired by lattice summation methods analogous to the Madelung constant
-
-License
-
-This repository is intended for academic and research use.
-License details may be added upon publication or broader release.
-
-Citation
+## Citation
 
 If you use or reference this work, please cite:
 
-Ye Jin Han, A Two-Charge Theory of Gravity, Honors Thesis, Greenville University, 2018.
+> Ye Jin Han, *A Two-Charge Theory of Gravity*, Honors Thesis, Greenville University, 2018.
