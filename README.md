@@ -107,7 +107,10 @@ _Add rendered outputs, links, or GIFs here._
   Light particles propagating through a field of multiple gravitating and anti-gravitating sources.
 
 - **Video**:  
-  `videos/TestMultiGrav.mp4`
+  https://youtu.be/fBuN99ohgHY
+  https://youtu.be/jxYMFTuZRpY
+  https://youtu.be/b3LoGl2RoXQ
+  
 
 #### Inverted gravitational lensing
 
