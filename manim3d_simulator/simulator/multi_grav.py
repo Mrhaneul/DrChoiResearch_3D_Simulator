@@ -133,13 +133,13 @@ class TestMultiGrav(ThreeDScene):
         self.add(*a_sources)
 
         # Earth sphere
-        earth = Sphere(
-            radius=cp.EARTH_RADIUS,
-            color=cp.EARTH_COLOR,
-            fill_opacity=0.5,
-            stroke_color=cp.EARTH_COLOR,
-            stroke_width=2
-        ).move_to([0, 25, 0])  # swapped x/y
+        # earth = Sphere(
+        #     radius=cp.EARTH_RADIUS,
+        #     color=cp.EARTH_COLOR,
+        #     fill_opacity=0.5,
+        #     stroke_color=cp.EARTH_COLOR,
+        #     stroke_width=2
+        # ).move_to([0, 25, 0])  # swapped x/y
         # self.add(earth)
 
         # =========================================================
