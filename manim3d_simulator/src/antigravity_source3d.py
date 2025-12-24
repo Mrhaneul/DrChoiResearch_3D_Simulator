@@ -1,14 +1,14 @@
 import math
 from manim import *
-from control_panel import ControlPanel as cp
+from manim3d_simulator.control_panel import ControlPanel as cp
 
-class AntiGravitySource3D(VGroup):
+class AntiGravitySource3D(Group):
     def __init__(self, mass, position):
         super().__init__()
         self.mass = mass
         self.position = position
         # Create a visual object (sphere) for the anti-gravity source
-        self.antigravity_sphere_obj = self.antigravity_sphere()
+        self.antigravity_sphere_obj = Group(self.antigravity_sphere())  # Wrap in Group
         self.add(self.antigravity_sphere_obj)
 
     def antigravity_sphere(self):

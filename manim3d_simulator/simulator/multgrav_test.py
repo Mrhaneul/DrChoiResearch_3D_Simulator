@@ -10,7 +10,7 @@ for p in (_pkg_root, _proj_root):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from control_panel import ControlPanel as cp
+from manim3d_simulator.control_panel import ControlPanel as cp
 from manim3d_simulator.src.gravity_source3d import GravitySource3D as gs3d
 from manim3d_simulator.src.antigravity_source3d import AntiGravitySource3D as as3d
 

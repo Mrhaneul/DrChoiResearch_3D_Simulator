@@ -1,15 +1,15 @@
 import math
 from manim import *
-from control_panel import ControlPanel as cp
+from manim3d_simulator.control_panel import ControlPanel as cp
 
-class GravitySource3D(VGroup):
+class GravitySource3D(Group):
     def __init__(self, mass, position):
         super().__init__()
         self.mass = mass
         self.position = position
         # Create a visual object, like a dot, at the gravity source's position
-        self.gravity_sphere_obj = self.gravity_sphere()  # Create the gravity sphere object
-        self.add(self.gravity_sphere_obj)  # Add the sphere object to the VGroup
+        self.gravity_sphere_obj = Group(self.gravity_sphere())  # Wrap the gravity sphere in a Group
+        self.add(self.gravity_sphere_obj)  # Add the sphere Group to this Group
 
     def gravity_sphere(self):
         return Sphere(
